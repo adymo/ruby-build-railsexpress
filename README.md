@@ -1,6 +1,6 @@
 #ruby-build-railsexpress
 
-ruby-build-railsexpress is an rbenv plugin that provides an rbenv install command to compile and install Ruby with memory profiling and optimization patches from [Rails Expres](https://github.com/skaes/rvm-patchsets) patchset.
+ruby-build-railsexpress is an rbenv plugin that provides an rbenv install command to compile and install Ruby with memory profiling and optimization patches from [Rails Express](https://github.com/skaes/rvm-patchsets) patchset.
 
 ## Installation
 
