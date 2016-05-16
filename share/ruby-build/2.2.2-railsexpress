@@ -1,0 +1,16 @@
+build_package_reconfigure() {
+  test -f configure || autoconf
+}
+
+build_package_patch_ruby_railsexpress() {
+  fetch_git rvm-patchsets git://github.com/skaes/rvm-patchsets.git master
+
+  patch -p1 < rvm-patchsets/patches/ruby/2.2.2/railsexpress/01-zero-broken-tests.patch
+  patch -p1 < rvm-patchsets/patches/ruby/2.2.2/railsexpress/02-improve-gc-stats.patch
+  patch -p1 < rvm-patchsets/patches/ruby/2.2.2/railsexpress/03-display-more-detailed-stack-trace.patch
+  patch -p1 < rvm-patchsets/patches/ruby/2.2.2/railsexpress/04-backported-bugfixes-222.patch
+}
+
+
+install_package "openssl-1.0.2c" "https://www.openssl.org/source/openssl-1.0.2c.tar.gz" mac_openssl --if has_broken_mac_openssl
+install_package "ruby-2.2.2" "http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.2.tar.gz" reconfigure patch_ruby_railsexpress ldflags_dirs standard verify_openssl
