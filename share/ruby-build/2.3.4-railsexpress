@@ -1,0 +1,14 @@
+build_package_reconfigure() {
+  test -f configure || autoconf
+}
+
+build_package_patch_ruby_railsexpress() {
+  fetch_git rvm-patchsets git://github.com/skaes/rvm-patchsets.git master
+
+  patch -p1 < rvm-patchsets/patches/ruby/2.3.3/railsexpress/01-skip-broken-tests.patch
+  patch -p1 < rvm-patchsets/patches/ruby/2.3.3/railsexpress/02-improve-gc-stats.patch
+  patch -p1 < rvm-patchsets/patches/ruby/2.3.3/railsexpress/03-display-more-detailed-stack-trace.patch
+}
+
+install_package "openssl-1.0.2h" "https://www.openssl.org/source/openssl-1.0.2h.tar.gz#1d4007e53aad94a5b2002fe045ee7bb0b3d98f1a47f8b2bc851dcd1c74332919" mac_openssl --if has_broken_mac_openssl
+install_package "ruby-2.3.4" "https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.4.tar.bz2#cd9808bb53824d6edb58beaadd3906cb23b987438ce75ab7bb279b2229930e2f" reconfigure patch_ruby_railsexpress ldflags_dirs standard verify_openssl
