@@ -8,7 +8,7 @@ ruby-build-railsexpress is an rbenv plugin that provides an rbenv install comman
 
 Clone the repository to rbenv plugins directory.
 
-    git clone https://github.com/adymo/ruby-build-railsexpress.git ~/.rbenv/plugins/ruby-build-railsexpress
+    git clone https://github.com/lisbethw1130/ruby-build-railsexpress.git ~/.rbenv/plugins/ruby-build-railsexpress
 
 Now `rbenv install -l` command should see -railsexpress Ruby versions.
 
