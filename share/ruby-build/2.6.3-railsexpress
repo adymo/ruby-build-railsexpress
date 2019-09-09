@@ -1,0 +1,15 @@
+build_package_reconfigure() {
+  test -f configure || autoconf
+}
+
+build_package_patch_ruby_railsexpress() {
+  fetch_git rvm-patchsets git://github.com/skaes/rvm-patchsets.git master
+
+  patch -p1 < rvm-patchsets/patches/ruby/2.6.3/railsexpress/01-fix-broken-tests-caused-by-ad.patch
+  patch -p1 < rvm-patchsets/patches/ruby/2.6.3/railsexpress/02-improve-gc-stats.patch
+  patch -p1 < rvm-patchsets/patches/ruby/2.6.3/railsexpress/03-more-detailed-stacktrace.patch
+  patch -p1 < rvm-patchsets/patches/ruby/2.6.3/railsexpress/04-malloc-trim.patch
+}
+
+install_package "openssl-1.1.1b" "https://www.openssl.org/source/openssl-1.1.1b.tar.gz#5c557b023230413dfb0756f3137a13e6d726838ccd1430888ad15bfb2b43ea4b" mac_openssl --if has_broken_mac_openssl
+install_package "ruby-2.6.3" "https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.3.tar.bz2#dd638bf42059182c1d04af0d5577131d4ce70b79105231c4cc0a60de77b14f2e" reconfigure patch_ruby_railsexpress ldflags_dirs standard verify_openssl
